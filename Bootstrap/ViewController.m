@@ -130,7 +130,7 @@ OSStatus SecCodeCopySigningInformation(SecStaticCodeRef code, SecCSFlags flags, 
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         usleep(1000*500);
-        [AppDelegate addLogText:@"\n:::Credits:::\n"];
+        [AppDelegate addLogText:@"\n\n"];
         usleep(1000*500);
         for(NSString* name in CREDITS) {
             usleep(1000*50);
