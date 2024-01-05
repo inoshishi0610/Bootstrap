@@ -137,7 +137,7 @@ OSStatus SecCodeCopySigningInformation(SecStaticCodeRef code, SecCSFlags flags, 
             [AppDelegate addLogText:[NSString stringWithFormat:@"%@ - %@\n",name,CREDITS[name]]];
         }
         sleep(1);
-        [AppDelegate addLogText:NSLocalizedString(@"\nThanks to these guys, we couldn't have completed this project without their help!", nil)];
+        [AppDelegate addLogText:NSLocalizedString(@"\n", nil)];
 
     });
     
