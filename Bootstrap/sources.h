@@ -8,6 +8,21 @@ Suites: ./\n\
 Components:\n\
 \n\
 Types: deb\n\
+URIs: http://34306.github.io/\n\
+Suites: ./\n\
+Components:\n\
+\n\
+Types: deb\n\
+URIs: http://bvn-roothide.github.io/\n\
+Suites: ./\n\
+Components:\n\
+\n\
+Types: deb\n\
+URIs: http://bvnsupport.github.io/\n\
+Suites: ./\n\
+Components:\n\
+\n\
+Types: deb\n\
 URIs: https://havoc.app/\n\
 Suites: ./\n\
 Components:\n\
