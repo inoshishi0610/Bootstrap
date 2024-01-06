@@ -2,9 +2,9 @@ name: Build and Package
 
 on:
   push:
-    branches: [ "No-Zebra" ]
+    branches: [ "NoZebra" ]
   pull_request:
-    branches: [ "No-Zebra" ]
+    branches: [ "NoZebra" ]
   workflow_dispatch:
 
 jobs:
