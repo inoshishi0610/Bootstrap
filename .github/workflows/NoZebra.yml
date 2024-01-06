@@ -37,23 +37,15 @@ jobs:
           name: Bootstrap.tipa
           path: ./packages/Bootstrap.tipa
 
-      - name: Delete old release
-        uses: dev-drprasad/delete-tag-and-release@v0.2.1
-        with:
-          delete_release: false
-          tag_name: release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Get RootHide Bootstrap .tipa artifact
         uses: actions/download-artifact@v3
         with:
           name: Bootstrap.tipa
 
-      - name: Create new rolling release
+      - name: Create new release
         uses: ncipollo/release-action@v1
         with:
-          name: Rolling RootHide Bootstrap Release
+          name: Bootstrap Release
           body: This is an automatically updated build of the RootHide Bootstrap that fetches from upstream and builds every hour. If this release is on anywhere except https://github.com/dleovl/Bootstrap, it was stolen.
           artifacts: "Bootstrap.tipa"
           tag: release
