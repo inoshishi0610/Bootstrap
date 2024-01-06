@@ -1,59 +1,69 @@
-name: Build and Package
+name: Build RootHide Bootstrap .tipa
 
 on:
   push:
-    branches: [ "NoZebra" ]
+    branches: ["NoZebra"]
   pull_request:
-    branches: [ "NoZebra" ]
+    branches: ["NoZebra"]
   workflow_dispatch:
 
 jobs:
   build:
-    name: Build Bootstrap
+    name: Build RootHide Bootstrap .tipa
     runs-on: macos-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          submodules: true
+
+      - name: Fetch from upstream repository RootHide/Bootstrap
+        run: |
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --global user.name "${GITHUB_ACTOR}"
+          git remote add upstream https://github.com/RootHide/Bootstrap
+          git fetch upstream
+          git fetch --all --prune
+          git pull --rebase --strategy-option=theirs upstream main
+    
+      - name: Install Homebrew
+        run: bash -c "$(curl -fsSL 'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh')"
 
       - name: Install Theos
-        run: bash -c "$(curl -fsSL https://raw.githubusercontent.com/roothide/theos/master/bin/install-theos)"
+        run: bash -c "$(curl -fsSL 'https://raw.githubusercontent.com/RootHide/Theos/master/bin/install-theos')"
 
-      - name: Setup Environment
+      - name: Install make
+        run: brew install make
+
+      - name: Setup Theos environment
         run: echo "THEOS=~/theos" >> $GITHUB_ENV
 
-      - name: Make Bootstrap Package
-        run: make package
+      - name: Make RootHide Bootstrap .tipa
+        run: gmake -j$(sysctl -n hw.ncpu) package
 
-      - name: Upload Artifact
+      - name: Upload .tipa artifact
         uses: actions/upload-artifact@v3
         with:
           name: Bootstrap.tipa
           path: ./packages/Bootstrap.tipa
-  update-release:
-    name: Release .tipa
-    runs-on: ubuntu-latest
-    needs: build
 
-    steps:
-    - name: Delete old release
-      uses: dev-drprasad/delete-tag-and-release@v0.2.1
-      with:
-        delete_release: true
-        tag_name: release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Get artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: Bootstrap.tipa
-    - name: Create new release
-      uses: ncipollo/release-action@v1
-      with:
-        name: Release
-        body: These are automatically updated builds of the latest commit.
-        artifacts: "Bootstrap.tipa"
-        tag: release
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Delete old release
+        uses: dev-drprasad/delete-tag-and-release@v0.2.1
+        with:
+          delete_release: true
+          tag_name: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get RootHide Bootstrap .tipa artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: Bootstrap.tipa
+
+      - name: Create new rolling release
+        uses: ncipollo/release-action@v1
+        with:
+          name: Rolling RootHide Bootstrap Release
+          body: This is an automatically updated build of the RootHide Bootstrap that fetches from upstream and builds every hour. If this release is on anywhere except https://github.com/dleovl/Bootstrap, it was stolen.
+          artifacts: "Bootstrap.tipa"
+          tag: release
+          token: ${{ secrets.GITHUB_TOKEN }}
