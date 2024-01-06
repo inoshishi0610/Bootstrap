@@ -1,4 +1,4 @@
-name: Build RootHide Bootstrap .tipa
+name: Build Bootstrap .tipa
 
 on:
   push:
