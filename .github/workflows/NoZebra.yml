@@ -37,7 +37,7 @@ jobs:
           name: Bootstrap.tipa
           path: ./packages/Bootstrap.tipa
 
-                - name: Delete old release
+      - name: Delete old release
         uses: dev-drprasad/delete-tag-and-release@v0.2.1
         with:
           delete_release: true
