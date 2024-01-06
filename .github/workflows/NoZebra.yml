@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build RootHide Bootstrap .tipa
+    name: Build Bootstrap .tipa
     runs-on: macos-latest
 
     steps:
