@@ -5,7 +5,7 @@ on:
     branches: [ "NoZebra" ]
   workflow_dispatch:
   schedule:
-    - cron: "40 * * * *"
+    - cron: "0 * * * *"
 
   
 jobs:
