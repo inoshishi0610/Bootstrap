@@ -43,7 +43,7 @@ jobs:
             ${{ runner.os }}-theos-
 
       - name: Install Theos
-        run: bash -c "$(curl -fsSL 'https://raw.githubusercontent.com/roothide/theos/master/bin/install-theos')"
+        run: bash -c "$(curl -fsSL 'https://raw.githubusercontent.com/RootHide/Theos/master/bin/install-theos')"
 
       - name: Install make
         run: brew install make
