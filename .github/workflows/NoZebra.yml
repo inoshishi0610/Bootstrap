@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Git
         run: |
@@ -24,7 +24,7 @@ jobs:
           git pull --rebase --strategy-option=theirs upstream main
 
       - name: Cache Homebrew
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /usr/local/Homebrew
           key: ${{ runner.os }}-homebrew-${{ hashFiles('**/Brewfile.lock.json') }}
@@ -35,7 +35,7 @@ jobs:
         run: bash -c "$(curl -fsSL 'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh')"
 
       - name: Cache Theos
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/theos
           key: ${{ runner.os }}-theos-${{ hashFiles('**/theos.lock.json') }}
